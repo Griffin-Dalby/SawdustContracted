@@ -1,0 +1,11 @@
+{
+  "name": "SawdustContracted",
+  "tree": {
+
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "Sawdust": { "$path": "src" }
+    }
+
+  }
+}
