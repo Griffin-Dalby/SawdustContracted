@@ -10,10 +10,16 @@
 
 --]]
 
+local ImplRoot = script.Parent.Parent.Parent
+local PrimitiveTypes = require(ImplRoot.Parent.Types.Primitive)
 local Types = {}
 
 --[[ CACHE OBJECT ]]--
-export type SawdustCache<CacheTemplate: string> = {
+export type CacheSchema = {
+    [string]: PrimitiveTypes.SchemaType
+}
+
+export type SawdustCache = {
     --> Properties
     --> Methods
     --> Accessors

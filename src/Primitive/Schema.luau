@@ -12,7 +12,7 @@
 
 --]] Services
 --]] Modules
-local PrimativeType = require(script.Parent.Types.Primative)
+local PrimitiveType = require(script.Parent.Parent.Types.Primitive)
 
 --]] Settings
 --]] Constants
@@ -25,24 +25,29 @@ Schema.__index = Schema
 --]] Type Definitions
 type self = {
 
-} & PrimativeType.SawdustSchema<{}, {}>
+} | PrimitiveType.SawdustSchema<{}>
+
+export type SchemaType = PrimitiveType.SchemaType
+export type SchemaTemplate<Template> = PrimitiveType.SchemaTemplate<Template>
+export type Schema<Template> = PrimitiveType.SawdustSchema<Template>
 
 --]] Constructor
 
 --[[
     Creates a new Schema Template for a Sawdust Implementation.<br>
-    This will make it possible to create new, properly typechecked
-    schemas for developer usage.
+    This will make it possible to verify against Contract agreements.
 
     @param schema Template for Schema values.
-    @param additional_types Additional types for default entries.
 
     @return Sawdust Schema 
 ]]
-function Schema.template(schema: {}, additional_types: {})
-    : PrimativeType.SchemaTemplate<schema, additional_types>
+function Schema.new(schema_t: {})
+    : PrimitiveType.SchemaTemplate<any>
 
     local self = setmetatable({} :: self, Schema)
+
+    --> Verify Schema Template
+    
 
     return self
 end
@@ -50,4 +55,4 @@ end
 --]] Methods
 --]] Accessors
 
-return schema
+return Schema

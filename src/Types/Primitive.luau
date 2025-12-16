@@ -1,15 +1,15 @@
 --[[
 
-    Primative Types
+    Primitive Types
 
     Griffin Dalby
     Apache 2.0 License
 
-        Provides Types for Sawdust Primative objects.
+        Provides Types for Sawdust Primitive objects.
 
 --]]
 
-local Primatives = {}
+local Primitives = {}
 
 --[[ SCHEMA ]]--
 --#region
@@ -19,36 +19,24 @@ local Primatives = {}
 
     @param AddTypes... Additional Types to be used with typechecking.
 ]]
-export type SchemaTemplateType<AddTypes> = 
+export type SchemaType = 
       'string'
-    | 'number',
-    | 'Instance',
-    | 'Vector3',
-    | 'CFrame',
-    | unpack(AddTypes)
-
---[[
-    Raw template dictating which types should be used and which values should
-    be expected.
-]]
-export type SchemaRawTemplate<Template, AddTypes> = {
-    [string]: SchemaTemplateType<AddTypes>,
-
-    --> Sub-directory can be another template
-    --> TODO: Investigate sub-template entry typecheck
-    [string]: {} | SchemaRawTemplate<Template, AddTypes>,
-}
+    | 'number'
+    | 'table'
+    | 'Instance'
+    | 'Vector3'
+    | 'CFrame'
 
 --[[
     Template that defines what a Schema should validate with the given
     set of information.
 ]]
-export type SchemaTemplate<Template, AddTypes> = {
+export type SchemaTemplate<Template> = {
     --> Properties
-    schema: SchemaRawTemplate<Template, AddTypes>,
+    schema: Template,
 
     --> Methods
-    Build: (self: SchemaTemplate<Template, AddTypes>, ): 
+    Build: (self: SchemaTemplate<Template>) -> nil
 } 
 & Template --> Append any template given from a impl's contract.
 
@@ -59,12 +47,12 @@ export type SchemaTemplate<Template, AddTypes> = {
     @param Template Schema Template to use for Typechecking.
     @param AddTypes Additional types that will be used for default entry Typechecking.
 ]]
-export type SawdustSchema<Template, AddTypes> = {
+export type SawdustSchema<Template> = {
     --> Properties
-    template: SchemaTemplate<Template, AddTypes>
+    template: SchemaTemplate<Template>,
 
     --> Methods
-    Verify: (self: SawdustSchema<Template, AddTypes>, compare_to: SchemaTemplate<{any}, {any}>) -> boolean,
+    Verify: (self: SawdustSchema<Template>, compare_to: SchemaTemplate<{any}>) -> boolean,
 
 }
 
@@ -78,7 +66,7 @@ export type SawdustSchema<Template, AddTypes> = {
     A "Contract" gets transpiled into a Unit for Runtime / Build time.
 ]]
 export type SawdustContract = {
-
+    --> Properties
 }
 
 --#endregion
@@ -96,4 +84,4 @@ export type SawdustUnit = {
 
 --#endregion
 
-return Primatives
+return Primitives

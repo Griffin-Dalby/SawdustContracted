@@ -16,6 +16,9 @@
 --]] Modules
 local CacheTypes = require(script['Cache.d'])
 
+local Impl = script.Parent.Parent
+local Schema = require(Impl.Parent.Primitive.Schema)
+
 --]] Settings
 --]] Constants
 --]] Variables
@@ -25,9 +28,12 @@ local Cache = {}
 Cache.__index = Cache
 
 --]] Type Definition
-type self<CacheTemplate> = {
+type self = {
+    --> Internal
+    __schema: Schema.SchemaTemplate<any>,
 
-} & CacheTypes.SawdustCache<CacheTemplate>
+
+} & CacheTypes.SawdustCache
 
 --]] Constructor
 
@@ -35,16 +41,18 @@ type self<CacheTemplate> = {
     Constructs a new Sawdust Cache object, allowing you to store data,
     and selectively expose stored data to the Global Cache.
 ]]
-function Cache.new(schema: {[any]: any}) : CacheTypes.SawdustCache<schema>
-    local self = setmetatable({} :: self<schema>)
+function Cache.new(schema: {[any]: any}) : CacheTypes.SawdustCache
+    local self = setmetatable({} :: self, Cache)
 
     --> Properties
-    
+    self.__schema = Schema.new(schema)
 
     return self
 end
 
 --]] Methods
-function Cache:
+
 
 --]] Accessors
+
+return Cache

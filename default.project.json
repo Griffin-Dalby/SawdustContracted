@@ -5,6 +5,22 @@
     "$className": "DataModel",
     "ReplicatedStorage": {
       "Sawdust": { "$path": "src" }
+    },
+
+    "ServerScriptService": {
+      "Contracts": { 
+        "$path": "contract/server",
+        "RContract": { "$path": "contract/RContract.luau" }
+      }
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Contracts": { 
+          "$path": "contract/client",
+          "RContract": { "$path": "contract/RContract.luau" }
+        }
+      }
     }
 
   }
